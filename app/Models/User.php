@@ -16,6 +16,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+    // protected $hidden = [];
 
     /**
      * Get the attributes that should be cast.
