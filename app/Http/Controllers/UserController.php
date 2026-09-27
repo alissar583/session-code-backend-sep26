@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,26 +11,25 @@ class UserController extends Controller
 {
     public function index()
     {
-        return Product::query()->get();
+        $products=  Product::query()->get();
+
+        return response()->json([
+            'message' => "user created succesfully",
+            "data" => $products
+        ]);
     }
 
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        $validated =  $request->validate([
-            'name' => ['required', 'string'],
-            'uid' => ['required', 'integer'],
-            'user_id' => ['required', 'integer', 'exists:users,id']
-        ]);
+    //    return $request->validated();
+
+       User::query()->create($request->validated());
 
 
-        Product::query()->create([
-
-            "name" => $request->name,
-            "uid" => $request->uid,
-            "user_id" => $request->user_id,
-
-        ]);
+        Product::query()->create(
+            $request->validated()
+        );
         return "success";
     }
 

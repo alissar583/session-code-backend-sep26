@@ -61,27 +61,33 @@ Route::put('users/{id}', function ($id) {
 });
 
 
-Route::get('users', function () {
+Route::get('users/{id}/{category_id}', function ($id) {
     DB::table('users')
-    ->where('id',1)
-    ->insert([
-        [
-
-        ]
+    ->where('id',$id)
+    ->update([
+        'name' => "d\aga"
+      
     ]);
 });
 
 
-Route::post('products',[ProductController::class , 'store1']);
+// Route::post('products',[ProductController::class , 'store1']);
 
 
 
 
 
-Route::post('users',function(){
-    User::create([
-        'name' => 'test',
-        'email' => 'test',
-        'password' => 'test'
-    ]);
+Route::post('users',function(Request $request){
+    // return User::all();
+    // return $request;
+    // User::update([
+    //     'name' => $request->name,
+    //     'email' =>  $request->email,
+    //     'password' => $request->password
+    // ]);
+
+    // Profile::create([
+    //     'user_id' => 1
+    // ]);
+    
 });
