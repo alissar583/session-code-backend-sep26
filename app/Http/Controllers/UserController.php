@@ -3,47 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+
     public function index()
     {
-        $products=  Product::query()->get();
+        $products =  Product::query()->get();
 
-        return response()->json([
-            'message' => "user created succesfully",
-            "data" => $products
-        ]);
+        return $this->success(data: $products);
     }
 
 
     public function store(StoreProductRequest $request)
     {
-    //    return $request->validated();
+        $user = User::query()->create($request->validated());
 
-       User::query()->create($request->validated());
-
-
-        Product::query()->create(
-            $request->validated()
-        );
-        return "success";
+        return $this->success(data: $user);
     }
 
-    public function update($id, Request $request)
+
+    public function update($id, UpdateProductRequest $request)
     {
         Product::query()
             ->where('id', $id)
-            ->update([
-                "name" => $request->name,
-            ]);
+            ->update($request->validated());
     }
-
-
-
-
-  
 }

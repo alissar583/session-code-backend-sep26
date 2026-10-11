@@ -11,11 +11,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         DB::table('products')->where('id', $id)->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'description' => $request->description
         ]);
     }
 
-    public function store1(Request $request)
+    public function store(Request $request)
     {
         Product::query()->create([
             'name' => $request->name,

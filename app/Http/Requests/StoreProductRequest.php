@@ -24,7 +24,10 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
             'uid' => ['required', 'integer'],
+            'email' => ['required', 'email'],
+            'password' => ['required'],
             'user_id' => ['required', 'integer', 'exists:users,id']
         ];
     }
