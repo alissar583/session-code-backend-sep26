@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,7 @@ Route::get('users/{id}/edit', function ($id) {
     return view('users.edit', compact('user'));
 })->name('users.edit');
 
-Route::put('users/{id}', function ($id, Request $request) {
+Route::put('users/{id}', function ($id, UpdateUserRequest $request) {
     $user = User::query()->find($id);
     $user->update([
         'name' => $request->name,
@@ -76,7 +77,6 @@ Route::post('users', function (Request $request) {
         'email' => $request->email,
         'password' => $request->password,
     ]);
-    $users = User::query()->get();
 
     return redirect()->route("users.index");
 })->name("users.store");

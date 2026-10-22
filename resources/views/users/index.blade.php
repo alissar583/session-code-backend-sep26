@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
-</head>
-
-<body>
-
+@section('content')
     <table class="table">
         <thead>
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                {{-- <th scope="col">actions</th> --}}
+                <th scope="col">actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +14,17 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>
+                        <a href="{{ route('users.edit', $user->id) }}">edit</a>
+                        <form action="{{ route('users.destroy', $user->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button>delete</button>
+                        </form>
+
+                    </td>
+
+
 
                 </tr>
             @endforeach
@@ -47,13 +47,17 @@
         </tbody>
     </table>
 
-
-    <a href="{{ route("users.create") }}">create</a>
-
-
-    {{-- <a href="{{ route('users.create') }}">create</a> --}}
-
-
-</body>
-
-</html>
+    <x-button class="active" style="color:green" test="attributes" />
+    <x-alert content="index" />
+    <x-card>
+        <x-slot name="header">
+            <h5 class="card-title">header</h5>
+        </x-slot>
+        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
+            content.</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </x-card>
+    <a href="{{ route('users.create') }}">create</a>
+@endsection

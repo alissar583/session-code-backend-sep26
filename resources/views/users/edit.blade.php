@@ -1,31 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <form action="{{ route('users.update',$user->id) }}" method="post">
+@section('content')
+    <form action="{{ route('users.update', $user->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <label for="name">name</label>
         <input id="name" type="text" name= "name" value="{{ $user->name }}">
+        <error>
+            @if ($errors->has('name'))
+                <p>{{ $errors->first('name') }}</p>
+            @endif
+        </error>
 
-        <label>email</label>
-        <input type="email" name= "email" value="{{ $user->email }}">
 
-        <label>password</label>
-        <input type="password" name="password">
-
-        <button type = 'submit'>submit</button>
-
+        <button>update</button>
     </form>
-
-</body>
-
-</html>
+@endsection

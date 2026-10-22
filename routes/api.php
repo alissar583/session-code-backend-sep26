@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Requests\SyncCourseWithStudentsRequest;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -159,3 +160,11 @@ Route::get('orders',function(){
 Route::get('favorites', function () {
     return User::find(2)->products;
 });
+
+
+Route::post('courses/{id}/students', function ($id,SyncCourseWithStudentsRequest $request) {
+    // return $request->validated();
+    $course = Course::find($id);
+    $course->students()->attach($request->students);
+});
+
