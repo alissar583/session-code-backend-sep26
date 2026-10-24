@@ -11,10 +11,10 @@ class Alert extends Component
     /**
      * Create a new component instance.
      */
-    public string $content;
-    public function __construct(string $content)
+    // public string $content;
+    public function __construct()
     {
-        $this->content = $content;
+        // $this->content = $content;
     }
 
     /**

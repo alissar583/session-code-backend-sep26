@@ -16,6 +16,11 @@
         <button>submit</button>
     </form>
 
-    <x-button color='primary' test="create" />
-    <x-alert content="create"/>
+    <x-button text="create" type="danger"></x-button>
+    <x-alert>
+
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+
+    </x-alert>
 @endsection

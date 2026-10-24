@@ -1,7 +1,9 @@
-@props(['test'])
+@props(['text','type'])
 
-<button
-    {{ $attributes->merge([
-        'class' => 'btn btn-primary',
-        'style' => 'color:red',
-    ]) }}>{{ $test }}</button>
+<button type="button" class="btn btn-{{ $type }}">
+    {{ $text }}
+</button>
+
+
+<div class="alert alert-success" role="alert">
+</div>

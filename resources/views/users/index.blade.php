@@ -47,17 +47,16 @@
         </tbody>
     </table>
 
-    <x-button class="active" style="color:green" test="attributes" />
-    <x-alert content="index" />
-    <x-card>
+    <x-button text="index" type="primary"></x-button>
+
+    <x-alert>
         <x-slot name="header">
-            <h5 class="card-title">header</h5>
+            <h4 class="alert-heading">index!</h4>
         </x-slot>
-        <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s
-            content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-    </x-card>
+        <hr>
+        <p class="mb-0">index you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+
+    </x-alert>
+
     <a href="{{ route('users.create') }}">create</a>
 @endsection
