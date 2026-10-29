@@ -16,11 +16,7 @@
         <button>submit</button>
     </form>
 
-    <x-button text="create" type="danger"></x-button>
-    <x-alert>
+    <x-button text="create"></x-button>
 
-        <hr>
-        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-
-    </x-alert>
+    
 @endsection

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\CheckAccessCodeMiddleware;
 use App\Http\Requests\SyncCourseWithStudentsRequest;
 use App\Models\Product;
 use App\Models\User;
@@ -73,11 +75,20 @@ Route::get('users/{id}/{category_id}', function ($id) {
 });
 
 
-// Route::post('products',[ProductController::class , 'store1']);
+Route::post('products', [ProductController::class, 'store']);
+
+Route::get('middleware/first', function () {
+    return "123";
+})->middleware(['access_code:123']);
+
+Route::get('middleware/second', function () {
+    return "1234";
+})->middleware(['access_code:1234']);
 
 
 
-
+Route::post('register',[AuthController::class,'register']);
+Route::post('login',[AuthController::class,'login']);
 
 // Route::post('users',function(Request $request){
 //     // return User::all();
@@ -139,9 +150,9 @@ Route::post("orders", function () {
     // $product2 = Product::query()->find(2);
     // $product3 = Product::query()->find(3);
 
-//  return    User::query()->with('products')->get();
- return     User::find(2)->load('products');
-//  return $user->products;
+    //  return    User::query()->with('products')->get();
+    return     User::find(2)->load('products');
+    //  return $user->products;
 });
 
 
@@ -151,7 +162,7 @@ Route::post("orders", function () {
 
 
 
-Route::get('orders',function(){
+Route::get('orders', function () {
     $user = User::query()->find(2);
 
     return $user->products;
@@ -162,9 +173,8 @@ Route::get('favorites', function () {
 });
 
 
-Route::post('courses/{id}/students', function ($id,SyncCourseWithStudentsRequest $request) {
+Route::post('courses/{id}/students', function ($id, SyncCourseWithStudentsRequest $request) {
     // return $request->validated();
     $course = Course::find($id);
     $course->students()->attach($request->students);
 });
-

@@ -6,15 +6,18 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function __construct(protected UserService $userService) {}
 
     public function index()
     {
-        $products =  Product::query()->get();
+        $products =  $this->userService->index();
+
 
         return $this->success(data: $products);
     }
@@ -22,7 +25,8 @@ class UserController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $user = User::query()->create($request->validated());
+
+        $user = $this->userService->store($request->validated());
 
         return $this->success(data: $user);
     }

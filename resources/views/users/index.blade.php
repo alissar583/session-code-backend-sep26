@@ -47,16 +47,8 @@
         </tbody>
     </table>
 
-    <x-button text="index" type="primary"></x-button>
+    <x-button text="index" class='disabled' style="background:green"></x-button>
 
-    <x-alert>
-        <x-slot name="header">
-            <h4 class="alert-heading">index!</h4>
-        </x-slot>
-        <hr>
-        <p class="mb-0">index you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-
-    </x-alert>
 
     <a href="{{ route('users.create') }}">create</a>
 @endsection
