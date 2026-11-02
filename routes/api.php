@@ -77,19 +77,50 @@ Route::get('users/{id}/{category_id}', function ($id) {
 
 Route::post('products', [ProductController::class, 'store']);
 
-Route::get('middleware/first', function () {
-    return "123";
-})->middleware(['access_code:123']);
 
-Route::get('middleware/second', function () {
-    return "1234";
-})->middleware(['access_code:1234']);
+Route::delete('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
+Route::get('my-profile',[AuthController::class,'myProfile'])->middleware('auth:sanctum');
+// Route::get('middleware/first', function () {
+//     return "123";
+// })->middleware(['access_code:123']);
+
+// Route::get('middleware/second', function () {
+//     return "1234";
+// })->middleware(['access_code:1234']);
 
 
 
-Route::post('register',[AuthController::class,'register']);
-Route::post('login',[AuthController::class,'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
+
+
+
+
+// Route::get('test', function () {
+//     return 1;
+// })->middleware(['access_code:123']);
+
+// Route::get('test', function () {
+//     return 2;
+// })->middleware(['access_code:1234']);
+
+
+// Route::prefix('users')->middleware('access_code')->group(function () {
+
+//     Route::get('', function () {
+//         return 2;
+//     });
+//     Route::post('', function () {
+//         return 2;
+//     });
+// });
+
+
+// Route::get('test2',function(){
+//     $user = User::find(3);
+//     $user->name;
+// });
 // Route::post('users',function(Request $request){
 //     // return User::all();
 //     // return $request;

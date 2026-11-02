@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WebAuthContoller;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,3 +81,10 @@ Route::post('users', function (Request $request) {
 
     return redirect()->route("users.index");
 })->name("users.store");
+
+
+Route::get('register/form',[WebAuthContoller::class,'registerForm'])->name("register.form");
+Route::post('register',[WebAuthContoller::class,'register'])->name("register");
+Route::post('login',[WebAuthContoller::class,'login'])->name("login");
+Route::get('login/form',[WebAuthContoller::class,'loginForm'])->name("login.form");
+Route::get('logout',[WebAuthContoller::class,'logout'])->name("logout");

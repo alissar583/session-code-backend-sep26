@@ -13,13 +13,17 @@ class CheckAccessCodeMiddleware
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $code): Response
+    public function handle(Request $request, Closure $next,string $code): Response
     {
-        if($request->access_code != $code) {
+        if($request->access_code != $code){
             return response()->json([
-                'message' => "Access Denied"
-            ],401);
+                'message' => "invalid access code"
+            ]);
+
         }
+
+        
+      
         return $next($request);
     }
 }

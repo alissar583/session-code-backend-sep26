@@ -12,13 +12,7 @@ class AuthController extends Controller
 {
     public function register(RegisterRequest $request)
     {
-        $user = User::query()->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password
-        ]);
-
-
+        $user = User::query()->create($request->validated());
         $token = $user->createToken("myapptoken")->plainTextToken;
 
         return response()->json([
@@ -28,12 +22,13 @@ class AuthController extends Controller
                 "token" => $token
             ]
         ]);
+
     }
 
     public function login(LoginRequest $request)
     {
-        $user = User::query()->where('email', $request->email)->first();
-        if (!Hash::check($request->password, $user->password)) {
+       $user = User::query()->where('email', $request->email)->first();
+        if(!$user || !Hash::check($request->password, $user->password)){
             return response()->json([
                 'message' => "invalid credentials"
             ], 401);
@@ -49,10 +44,4 @@ class AuthController extends Controller
             ]
         ]);
     }
-
-
-
-    public function logout() {}
-
-    public function myprofile() {}
 }
