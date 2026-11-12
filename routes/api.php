@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
@@ -56,7 +57,7 @@ Route::prefix('users')->group(function () {
 
 
 
-Route::put('users/{id}', function ($id) {
+Route::put('users/{product}', function ($id) {
     DB::table('users')
         ->where('id', $id)
         ->update([
@@ -75,11 +76,11 @@ Route::get('users/{id}/{category_id}', function ($id) {
 });
 
 
-Route::post('products', [ProductController::class, 'store']);
+Route::post('products', [ProductController::class, 'store'])->middleware('auth:sanctum');
 
 
-Route::delete('logout',[AuthController::class,'logout'])->middleware('auth:sanctum');
-Route::get('my-profile',[AuthController::class,'myProfile'])->middleware('auth:sanctum');
+Route::delete('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::get('my-profile', [AuthController::class, 'myProfile'])->middleware('auth:sanctum');
 // Route::get('middleware/first', function () {
 //     return "123";
 // })->middleware(['access_code:123']);
@@ -95,6 +96,16 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 
+// Route::prefix('')->controller(ReviewController::class)->group(function () {
+//     Route::post('books/{book}/reviews', 'store');
+// });
+
+Route::get('test',function(){
+    Gate::authorize('access_admin');
+    
+
+    return "welcome";
+})->middleware('auth:sanctum');
 
 
 // Route::get('test', function () {

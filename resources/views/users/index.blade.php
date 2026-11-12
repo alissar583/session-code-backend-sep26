@@ -1,6 +1,9 @@
-@extends('layouts.app')
-
-@section('content')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Users') }}
+        </h2>
+    </x-slot>
     <table class="table">
         <thead>
             <tr>
@@ -14,15 +17,7 @@
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>
-                        <a href="{{ route('users.edit', $user->id) }}">edit</a>
-                        <form action="{{ route('users.destroy', $user->id) }}" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <button>delete</button>
-                        </form>
 
-                    </td>
 
 
 
@@ -46,9 +41,4 @@
             @endforeach --}}
         </tbody>
     </table>
-
-    <x-button text="index" class='disabled' style="background:green"></x-button>
-
-
-    <a href="{{ route('users.create') }}">create</a>
-@endsection
+</x-app-layout>
