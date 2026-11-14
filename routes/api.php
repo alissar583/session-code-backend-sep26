@@ -1,12 +1,17 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VidoeController;
 use App\Http\Middleware\CheckAccessCodeMiddleware;
 use App\Http\Requests\SyncCourseWithStudentsRequest;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -66,6 +71,23 @@ Route::put('users/{product}', function ($id) {
 });
 
 
+
+Route::post('posts/video', function () {
+    Video::create([
+        'content' => "test"
+    ]);
+
+    Post::create([
+        'content' => "test"
+    ]);
+});
+
+Route::post('comments', [CommentController::class, 'store']);
+
+Route::post("posts/{post}/comments", [PostController::class, 'storeComment']);
+
+Route::post("videos/{video}/comments", [VidoeController::class, 'storeComment']);
+
 Route::get('users/{id}/{category_id}', function ($id) {
     DB::table('users')
         ->where('id', $id)
@@ -100,9 +122,9 @@ Route::post('login', [AuthController::class, 'login']);
 //     Route::post('books/{book}/reviews', 'store');
 // });
 
-Route::get('test',function(){
+Route::get('test', function () {
     Gate::authorize('access_admin');
-    
+
 
     return "welcome";
 })->middleware('auth:sanctum');
